@@ -1,5 +1,5 @@
 * Added the ReportingStructure type that counts the number of reports
-* Added the Compensation type that reporesents an employee's salary and the effective date of the salary
+* Added the Compensation type that represents an employee's salary and the effective date of the salary
 * Created new endpoints for the new required API calls
 * Updated logging
 * Revised error handling throughout
