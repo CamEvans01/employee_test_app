@@ -33,7 +33,8 @@ public class EmployeeController {
         try {
             return employeeService.createEmployee(employee);
         }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error creating Employee", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Error creating Employee. Reason: " + e);
         }
     }
 
@@ -47,7 +48,8 @@ public class EmployeeController {
         try {
             return employeeService.getEmployee(id);
         }catch(RuntimeException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot find employee: " + id, e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Cannot find employee with id: " + id + " reason: " +e);
         }
     }
 
@@ -57,11 +59,12 @@ public class EmployeeController {
      */
     @GetMapping("/employee/numberOfReports/{id}")
     public ReportingStructure getEmployeeNumberOfReports(@PathVariable String id) {
-        LOG.debug("Received get employee number of reports request for id [{}]", id);
+        LOG.debug("Received get employee number of reports request for employee with id: [{}]", id);
         try {
             return employeeService.getEmployeeReports(id);
         }catch(RuntimeException e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error occurred while processing the employee reports for: " + id, e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Error occurred while processing the employee reports for employee with id: " + id + " reason: " + e);
         }
     }
 
@@ -72,13 +75,14 @@ public class EmployeeController {
      */
     @PutMapping("/employee/{id}")
     public Employee updateEmployee(@PathVariable String id, @RequestBody Employee employee) {
-        LOG.debug("Received update employee request for id [{}] and employee [{}]", id, employee);
+        LOG.debug("Received update employee request for employee with id: [{}]", id);
 
         employee.setEmployeeId(id);
         try {
             return employeeService.updateEmployee(employee);
         }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error Updating Employee", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Error Updating Employee with id" + id + " reason: " + e);
         }
     }
 
@@ -89,11 +93,12 @@ public class EmployeeController {
      */
     @PostMapping("/employee/compensation/{id}")
     public Compensation createEmployeeCompensation(@PathVariable String id, @RequestBody Compensation compensation) {
-        LOG.debug("Received employee create compensation request for [{}]", id);
+        LOG.debug("Received employee create compensation request for employee with id: [{}]", id);
         try {
             return employeeService.createEmployeeCompensation(id, compensation);
         }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error creating compensation for: " + id, e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Error creating compensation for employee with id: " + id + " reason: " + e);
         }
     }
 
@@ -103,11 +108,12 @@ public class EmployeeController {
      */
     @GetMapping("/employee/compensation/{id}")
     public Compensation getEmployeeCompensation(@PathVariable String id) {
-        LOG.debug("Received get employee compensation request for id [{}]", id);
+        LOG.debug("Received get employee compensation request for employee with id: [{}]", id);
         try {
             return employeeService.getEmployeeCompensation(id);
         }catch (RuntimeException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot find compensation for: " +id, e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Cannot find compensation for employee with id: " + id + " reason: " + e);
         }
     }
 }
